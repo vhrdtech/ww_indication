@@ -1,0 +1,13 @@
+[package]
+name = "ww_indication"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wire_weaver = { path = "../../wire_weaver/wire_weaver", default-features = false }
+defmt = { version = "1.0", optional = true }
+
+[features]
+default = ["std"]
+std = ["wire_weaver/std"]
+defmt = ["dep:defmt", "wire_weaver/defmt"]
