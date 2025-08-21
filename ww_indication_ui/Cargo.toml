@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+ww_indication = { path = "../ww_indication" }
+wire_weaver = { path = "../../wire_weaver/wire_weaver" }
+wire_weaver_client_common = { path = "../../wire_weaver/wire_weaver_client_common" }
+#tokio = { version = "1", features = ["sync", "net", "rt"] }

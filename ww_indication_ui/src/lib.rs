@@ -1,14 +1,16 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use wire_weaver::ww_api;
+use wire_weaver_client_common::CommandSender;
+
+pub struct IndicationClient<F, E> {
+    args_scratch: [u8; 512],
+    cmd_tx: CommandSender<F, E>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+ww_api!(
+    "../ww_indication/src/lib.rs" as ww_indication::Indication for IndicationClient,
+    client = true,
+    no_alloc = false,
+    use_async = true,
+    //derive = "Debug",
+    debug_to_file = "./target/ww_no_alloc.rs"
+);

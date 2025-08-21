@@ -1,4 +1,9 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 use wire_weaver::prelude::*;
+use ww_version::FullVersion;
+
+pub const FULL_VERSION: FullVersion = full_version!();
 
 #[ww_trait]
 pub trait Indication {
@@ -15,7 +20,7 @@ pub trait Indication {
     property!(animation_enable: bool);
 
     /// Must automatically leave test mode after 5 seconds.
-    property!(test_mode: TestMode);
+    property!(test_mode: TestMode<'i>);
 
     /// True if some indicators are hard-wired to power.
     const HAS_NOT_CONTROLLABLE: bool;
@@ -70,7 +75,8 @@ pub enum AlertBrightness {
 
 #[derive_shrink_wrap]
 #[ww_repr(u4)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[owned = "std"]
+#[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum TestMode<'name> {
     Off,
